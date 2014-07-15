@@ -1,4 +1,4 @@
-ngTagEditor: AngularJS tag input editor
+ngTagEditor: AngularJS tag input, editor
 ===========
 
 A new tag input, built for AngularJS
