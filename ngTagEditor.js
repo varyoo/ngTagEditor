@@ -69,7 +69,7 @@ tagEditor.directive('tagEditor', function(){
 			$scope.added = [];
 			$scope.search = '';
 			$scope.fetch = function(){
-				$http.get('tags.php??q=' + $scope.search).success(function(data){
+				$http.get('tags.php?q=' + $scope.search).success(function(data){
 					$scope.suggestions = data.data;
 				});
 			}
