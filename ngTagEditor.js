@@ -1,8 +1,15 @@
 var tagEditor = angular.module('ngTagEditor', []);
-tagEditor.filter('getIds', function (){
+/*tagEditor.filter('getIds', function (){
 	return function (items){
 		return items && items.map(function (item){
 			return item.id;
+		}).join(',');
+	}
+});*/
+tagEditor.filter('getRow', function(){
+	return function (items, row){
+		return items && items.map(function (item){
+				return item[row];
 		}).join(',');
 	}
 });
@@ -23,7 +30,7 @@ tagEditor.directive('focusMe', function($timeout, $parse){
 		}
 	};
 });
-/*tagEditor.directive('ngSpace', function(){
+tagEditor.directive('ngSpace', function(){
 	return function(scope, element, attrs){
 		element.bind("keydown keypress", function(event) {
 			if(event.which === 32) {
@@ -34,7 +41,7 @@ tagEditor.directive('focusMe', function($timeout, $parse){
 			}
 		});
 	};
-});
+});/*
 tagEditor.directive('ngEnter', function(){
 	return function(scope, element, attrs){
 		element.bind("keydown keypress", function(event) {
@@ -64,13 +71,16 @@ tagEditor.directive('tagEditor', function(){
 		restrict: 'E',
 		scope: {},
 		replace: true,
-		templateUrl: 'ngTagEditor.tpl',
-		controller: function($scope, $attrs, $element, $http){
+		templateUrl: 'ngTagEditor.html',
+		controller: function($scope, $attrs, $element, $http, $filter){
+			$scope.options = [];
+			$scope.options.output = $attrs.output || 'name';
 			$scope.added = [];
 			$scope.search = '';
 			$scope.fetch = function(){
-				$http.get('tags.php?q=' + $scope.search).success(function(data){
+				$http.get('api/tags?q=' + $scope.search).success(function(data){
 					$scope.suggestions = data.data;
+					console.log(data);
 				});
 			}
 			$scope.add = function(id, name){
@@ -80,12 +90,6 @@ tagEditor.directive('tagEditor', function(){
 			$scope.remove = function(index){
 				$scope.added.splice(index, 1);
 			}
-			/*$scope.delete = function(){
-				//alert($scope.search);
-				if($scope.added == ''){
-					$scope.added.pop();
-				}
-			}*/
 		}
 	}
 });
