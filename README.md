@@ -7,7 +7,7 @@ A new tag input, built for AngularJS
 
 Add the following files to your application:
 
-```
+```html
 <link rel="stylesheet" href="ngTagEditor.css" type="text/css"/>
 <script type="text/javascript" src="http://cdn.jsdelivr.net/angularjs/1.2.17/angular.min.js"></script>
 <script type="text/javascript" src="ngTagEditor.js"></script>
