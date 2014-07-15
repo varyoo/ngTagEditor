@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<style>
+			body{background-color:#fff;}
+			form{width:600px;margin:15% auto;}
+		</style>
+		<link rel="stylesheet" href="ngTagEditor.css" type="text/css"/>
+		<script type="text/javascript" src="http://cdn.jsdelivr.net/angularjs/1.2.17/angular.min.js"></script>
+		<script type="text/javascript" src="ngTagEditor.css"></script>
+		<script type="text/javascript" src="ngTagEditor.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('app', ['ngTagEditor']);
+		</script>
+	</head>
+	<body>
+		<form>
+			<tag-editor output="name"></tag-editor>
+		</form>
+	</body>
+</html>
