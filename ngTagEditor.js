@@ -69,13 +69,16 @@ tagEditor.directive('ngDelete', function(){
 tagEditor.directive('tagEditor', function(){
 	return{
 		restrict: 'E',
-		scope: {},
+		/*require: 'ngModel',*/
+		scope: {
+			link: '=ngModel',
+		},
 		replace: true,
 		templateUrl: 'ngTagEditor.html',
 		controller: function($scope, $attrs, $element, $http, $filter){
 			$scope.options = [];
 			$scope.options.output = $attrs.output || 'name';
-			$scope.added = [];
+			$scope.added = $scope.link || [];
 			$scope.search = '';
 			$scope.fetch = function(){
 				$http.get('api/tags?q=' + $scope.search).success(function(data){

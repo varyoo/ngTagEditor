@@ -11,11 +11,21 @@
 		<script type="text/javascript" src="ngTagEditor.js"></script>
 		<script type="text/javascript">
 			var app = angular.module('app', ['ngTagEditor']);
+			app.controller('RandomController', function($scope, $http) {
+				$scope.tags = [
+					{name: 'See'},
+					{name: 'how'},
+					{name: 'amazing'},
+					{name: 'is'},
+					{name: 'AngularJS'}
+				];
+			});
 		</script>
 	</head>
 	<body>
-		<form>
-			<tag-editor output="name"></tag-editor>
+		<form ng-controller="RandomController">
+			<tag-editor ng-model="tags" output="name"></tag-editor>
+			<span class="log">{{tags}}</span>
 		</form>
 	</body>
 </html>
