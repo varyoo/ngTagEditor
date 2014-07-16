@@ -78,10 +78,11 @@ tagEditor.directive('tagEditor', function(){
 		controller: function($scope, $attrs, $element, $http, $filter){
 			$scope.options = [];
 			$scope.options.output = $attrs.output || 'name';
+			$scope.options.fetch = $attrs.fetch || 'api/tags?q=';
 			$scope.added = $scope.link || [];
 			$scope.search = '';
 			$scope.fetch = function(){
-				$http.get('api/tags?q=' + $scope.search).success(function(data){
+				$http.get($scope.options.fetch + $scope.search).success(function(data){
 					$scope.suggestions = data.data;
 					console.log(data);
 				});
