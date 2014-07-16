@@ -1,1 +1,90 @@
-Hello World
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<!--link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"-->
+
+
+		<link rel="stylesheet" href="ngTagEditor.css" type="text/css"/>
+		<script type="text/javascript" src="http://cdn.jsdelivr.net/angularjs/1.2.17/angular.min.js"></script>
+		<script type="text/javascript" src="ngTagEditor.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('app', ['ngTagEditor']);
+			app.filter('getRow', function(){
+				return function (items, row){
+					return items && items.map(function (item){
+							return item[row];
+					}).join(',');
+				}
+			});
+			app.controller('RandomController', function($scope, $http) {
+				$scope.tags = [
+					{name: 'See'},
+					{name: 'how'},
+					{name: 'amazing'},
+					{name: 'is'},
+					{name: 'AngularJS'}
+				];
+			});
+		</script>
+	</head>
+	<body>
+
+		<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="http://varyoo.github.io/ngTagEditor">ngTagEditor</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="https://github.com/varyoo/ngTagEditor">Github</a></li>
+						<li><a href="https://github.com/varyoo/ngTagEditor/issues?state=open">Issues</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+
+		<div class="container" ng-controller="RandomController">
+
+			<div class="jumbotron">
+				<h1>ngTagEditor: the lightest tag editor!</h1>
+				<p>A new lightweight tag input, built for AngularJS.</p>
+				<p>
+					<a href="https://github.com/varyoo/ngTagEditor/archive/master.zip" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+					<a href="https://github.com/varyoo/ngTagEditor" class="btn btn-default btn-lg" role="button"><span class="glyphicon glyphicon-eye-open"></span> Github</a>
+				</p>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Demo</h2>
+					<p>Press space or enter to add a custom tag (a not suggested tag), otherwise just click it.</p>
+					<form>
+						<tag-editor ng-model="tags" output="name" fetch="url/to/my/api.php?query="></tag-editor>
+					</form>
+					<h2>Quick start</h2>
+					<p>Add the following component, and you're ready to go!</p>
+					<pre><code>&#60;tag-editor&#62;&#60;/tag-editor&#62;</code></pre>
+					<p><a href="https://github.com/varyoo/ngTagEditor/blob/master/README.md" class="btn btn-default" role="button"><span class="glyphicon glyphicon-flag"></span> See basic usage »</a></p>
+				</div>
+				<div class="col-md-6">
+					<p><strong>Output:</strong><p>
+					<pre><code>{{tags | getRow:'name'}}</code></pre>
+					<p>It will a hidden input like the following in your form:</p>
+					<pre><code>&#60;input type="hidden" name="tags" value="{{tags | getRow:'name'}}"/&#62;</code></pre>
+					<p><strong>Tags log:</strong></p>
+					<pre><code>{{tags}}</code></pre>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
