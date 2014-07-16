@@ -53,6 +53,32 @@ You can pass options by the following way: `<tag-editor option="value"></tag-edi
 * `output` which accepts
   * `name`: will add to the hidden input tag names (default).
   * `id`: If you use suggestions, it will replace tag names by tag Ids in the hidden input.
+* `fetch`
+  * `url/to/my/api.php?query=` required to suggest tags while the user is typing, this way, you can save ids instead of names (see `output`).
+  
+##### Suggestions
+
+First, give the URL of your API through the `fetch` option.
+The data must be formated as follow, as stated [this article](http://labs.omniti.com/labs/jsend).
+
+```json
+{
+    "status": "success",
+    "data": [{
+        "id": "45",
+        "name": "Say"
+    }, {
+        "id": "23",
+        "name": "Hello"
+    }, {
+        "id": "68",
+        "name": "to"
+    }, {
+        "id": "77",
+        "name": "JSON"
+    }]
+}
+```
 
 ## Exemple
 
