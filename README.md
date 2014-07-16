@@ -25,6 +25,29 @@ It will add a hidden input `<input type="hidden" name="tags">` containing added 
 
 You can pass options by the following way: `<tag-editor option="value"></tag-editor>`.
 
+#### Initializing tags
+
+Add something like that to your javascript code:
+```javascript
+var app = angular.module('app', ['ngTagEditor']);
+app.controller('RandomController', function($scope, $http) {
+	$scope.tags = [
+		{name: 'See'},
+		{name: 'how'},
+		{name: 'amazing'},
+		{name: 'is'},
+		{name: 'AngularJS'}
+	];
+});
+```
+That goes with the following html:
+
+```html
+<form ng-controller="RandomController">
+	<tag-editor ng-model="tags" output="name"></tag-editor>
+</form>
+```
+
 #### Available options
 
 * output
