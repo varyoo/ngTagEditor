@@ -23,8 +23,6 @@ It will add a hidden input `<input type="hidden" name="tags">` containing added 
 
 ### Advanced usage
 
-You can pass options by the following way: `<tag-editor option="value"></tag-editor>`.
-
 #### Initializing tags
 
 Add something like that to your javascript code:
@@ -50,9 +48,11 @@ That goes with the following html:
 
 #### Available options
 
-* output
-  * name: will add to the hidden input tag names (default).
-  * id: If you use suggestions, it will replace tag names by tag Ids in the hidden input.
+You can pass options by the following way: `<tag-editor option="value"></tag-editor>`.
+
+* `output` which accepts
+  * `name`: will add to the hidden input tag names (default).
+  * `id`: If you use suggestions, it will replace tag names by tag Ids in the hidden input.
 
 ## Exemple
 
