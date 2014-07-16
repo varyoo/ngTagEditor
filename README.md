@@ -3,6 +3,10 @@ ngTagEditor: AngularJS tag input, editor
 
 A new tag input, built for AngularJS
 
+## Demo
+
+See the live demo page [here](http://varyoo.github.io/ngTagEditor).
+
 ## Installation
 
 Add the following files to your application:
