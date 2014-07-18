@@ -1,4 +1,4 @@
-<div class="tag-editor" ng-space="add(0, search)" ng-class="{active:focus}" ng-init="focus = false" ng-click="setFocus = true">
+<div class="tag-editor" ng-space="add(0, search)" ng-enter="add(0, search)" ng-delete="delete()" ng-class="{active:focus}" ng-init="focus = false" ng-click="setFocus = true">
 	<span class="added tag" ng-repeat="tag in added | limitTo:30">{{tag.name}}<span class="remove" ng-click="remove($index)">x</span></span>
 	<input type="hidden" name="tags" value="{{added | getRow:options.output}}"/>
 	<input type="text" class="tag-input" placeholder="Enter a few letters..." ng-keyup="fetch()" ng-focus="focus = true" ng-blur="focus = false" focus-me="setFocus" ng-model="search"/>
