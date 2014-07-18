@@ -61,7 +61,7 @@ tagEditor.directive('ngDelete', function(){
 				scope.$apply(function (){
 					scope.$eval(attrs.ngDelete);
 				});
-				/*event.preventDefault();*/
+				event.preventDefault();
 			}
 		});
 	};
