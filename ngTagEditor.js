@@ -32,7 +32,7 @@ tagEditor.directive('focusMe', function($timeout, $parse){
 });
 tagEditor.directive('ngSpace', function(){
 	return function(scope, element, attrs){
-		element.bind("keydown keypress", function(event) {
+		element.bind("keydown", function(event) {
 			if(event.which === 32) {
 				scope.$apply(function (){
 					scope.$eval(attrs.ngSpace);
@@ -41,10 +41,10 @@ tagEditor.directive('ngSpace', function(){
 			}
 		});
 	};
-});/*
+});
 tagEditor.directive('ngEnter', function(){
 	return function(scope, element, attrs){
-		element.bind("keydown keypress", function(event) {
+		element.bind("keydown", function(event) {
 			if(event.which === 13) {
 				scope.$apply(function (){
 					scope.$eval(attrs.ngEnter);
@@ -56,22 +56,23 @@ tagEditor.directive('ngEnter', function(){
 });
 tagEditor.directive('ngDelete', function(){
 	return function(scope, element, attrs){
-		element.bind("keydown keypress", function(event) {
+		element.bind("keydown", function(event) {
 			if(event.which === 8) {
 				scope.$apply(function (){
 					scope.$eval(attrs.ngDelete);
 				});
-				event.preventDefault();
+				/*event.preventDefault();*/
 			}
 		});
 	};
-});*/
+});
 tagEditor.directive('tagEditor', function(){
 	return{
 		restrict: 'E',
 		/*require: 'ngModel',*/
 		scope: {
 			link: '=ngModel',
+			stored: '=ngStored'
 		},
 		replace: true,
 		templateUrl: 'ngTagEditor.html',
@@ -80,7 +81,9 @@ tagEditor.directive('tagEditor', function(){
 			$scope.options.output = $attrs.output || 'name';
 			$scope.options.fetch = $attrs.fetch || 'api/tags?q=';
 			$scope.added = $scope.link || [];
+			$scope.stored = $scope.stored || [];
 			$scope.search = '';
+			
 			$scope.fetch = function(){
 				$http.get($scope.options.fetch + $scope.search).success(function(data){
 					$scope.suggestions = data.data;
@@ -93,6 +96,11 @@ tagEditor.directive('tagEditor', function(){
 			}
 			$scope.remove = function(index){
 				$scope.added.splice(index, 1);
+			}
+			$scope.delete = function(){
+				if($scope.search == ''){
+					$scope.added.pop();
+				}
 			}
 		}
 	}

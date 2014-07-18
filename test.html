@@ -19,12 +19,20 @@
 					{name: 'is'},
 					{name: 'AngularJS'}
 				];
+				/*$scope.stored = [
+					{name: 'Here'},
+					{name: 'is'},
+					{name: 'my'},
+					{name: 'offline'},
+					{name: 'stored'},
+					{name: 'tags'}
+				];*/
 			});
 		</script>
 	</head>
 	<body>
 		<form ng-controller="RandomController">
-			<tag-editor ng-model="tags" output="name" fetch="url/to/my/api.php?query="></tag-editor>
+			<tag-editor ng-model="tags" output="name" fetch="url/to/my/api.php?q="></tag-editor>
 			<span class="log">{{tags}}</span>
 		</form>
 	</body>
