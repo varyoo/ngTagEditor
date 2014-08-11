@@ -84,12 +84,14 @@ tagEditor.directive('tagEditor', function(){
 			$scope.stored = $scope.stored || [];
 			$scope.search = '';
 			
-			$scope.fetch = function(){
-				$http.get($scope.options.fetch + $scope.search).success(function(data){
-					$scope.suggestions = data.data;
-					console.log(data);
-				});
-			}
+			$scope.$watch('search', function(){
+				$scope.fetch = function(){
+					$http.get($scope.options.fetch + $scope.search).success(function(data){
+						$scope.suggestions = data.data;
+						console.log(data);
+					});
+				}
+			});
 			$scope.add = function(id, name){
 				$scope.added.push({'id':id, 'name':name});
 				$scope.search = '';
