@@ -71,7 +71,7 @@ tagEditor.directive('tagEditor', function(){
 		restrict: 'E',
 		/*require: 'ngModel',*/
 		scope: {
-			link: '=ngModel',
+			added: '=ngModel',
 			stored: '=ngStored'
 		},
 		replace: true,
@@ -80,17 +80,15 @@ tagEditor.directive('tagEditor', function(){
 			$scope.options = [];
 			$scope.options.output = $attrs.output || 'name';
 			$scope.options.fetch = $attrs.fetch || 'api/tags?q=';
-			$scope.added = $scope.link || [];
-			$scope.stored = $scope.stored || [];
+			$scope.options.placeholder = $attrs.placeholder || 'Enter a few letters...';
+			//$scope.stored = $scope.stored || [];
 			$scope.search = '';
 			
 			$scope.$watch('search', function(){
-				$scope.fetch = function(){
-					$http.get($scope.options.fetch + $scope.search).success(function(data){
-						$scope.suggestions = data.data;
-						console.log(data);
-					});
-				}
+				$http.get($scope.options.fetch + $scope.search).success(function(data){
+					$scope.suggestions = data.data;
+					//console.log(data);
+				});
 			});
 			$scope.add = function(id, name){
 				$scope.added.push({'id':id, 'name':name});
