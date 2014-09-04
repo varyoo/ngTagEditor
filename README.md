@@ -54,11 +54,11 @@ That goes with the following html:
 
 You can pass options by the following way: `<tag-editor option="value"></tag-editor>`.
 
-* `output` which accepts
-  * `name`: will add to the hidden input tag names (default).
-  * `id`: If you use suggestions, it will replace tag names by tag Ids in the hidden input.
-* `fetch`
-  * `url/to/my/api.php?query=` required to suggest tags while the user is typing, this way, you can save ids instead of names (see `output`).
+name | values | description | default
+---- | ------ | ----------- | -------
+output | name, id | If you use suggestions, `id` will replace tag names by tag ids from your database in the hidden input. | name
+fetch | any valid API URL | required to suggest tags while the user is typing, this way, you can save ids instead of names (see `output`). The API output, must be formated properly, see Suggestions paragraph bellow. | "url/to/my/api.php?query="
+placeholder | any string | Text to display as input placeholder | "Enter a few letters..."
   
 ##### Suggestions
 
