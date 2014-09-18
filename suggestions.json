@@ -1,0 +1,9 @@
+{
+	"status": "success",
+	"data": [
+		{"id": 1, "name": "Technology"},
+		{"id": 2, "name": "Informatic"},
+		{"id": 3, "name": "Computers"},
+		{"id": 4, "name": "Graphics"}
+	]
+}

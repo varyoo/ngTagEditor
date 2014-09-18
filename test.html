@@ -10,29 +10,21 @@
 		<script type="text/javascript" src="ngTagEditor.css"></script>
 		<script type="text/javascript" src="ngTagEditor.js"></script>
 		<script type="text/javascript">
-			var app = angular.module('app', ['ngTagEditor']);
-			app.controller('RandomController', function($scope, $http) {
-				$scope.tags = [
-					{name: 'See'},
-					{name: 'how'},
-					{name: 'amazing'},
-					{name: 'is'},
-					{name: 'AngularJS'}
-				];
-				/*$scope.stored = [
-					{name: 'Here'},
-					{name: 'is'},
-					{name: 'my'},
-					{name: 'offline'},
-					{name: 'stored'},
-					{name: 'tags'}
-				];*/
-			});
+			angular.module('app', ['ngTagEditor'])
+				.controller('RandomController', function($scope){
+					$scope.tags = [
+						{name: 'See'},
+						{name: 'how'},
+						{name: 'amazing'},
+						{name: 'is'},
+						{name: 'AngularJS'}
+					];
+				});
 		</script>
 	</head>
 	<body>
 		<form ng-controller="RandomController">
-			<tag-editor ng-model="tags" output="name" fetch="url/to/my/api.php?q="></tag-editor>
+			<tag-editor ng-model="tags" output="name" fetch="suggestions.json"></tag-editor>
 			<span class="log">{{tags}}</span>
 		</form>
 	</body>
