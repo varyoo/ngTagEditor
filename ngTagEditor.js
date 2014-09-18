@@ -1,107 +1,82 @@
-var tagEditor = angular.module('ngTagEditor', []);
-/*tagEditor.filter('getIds', function (){
-	return function (items){
-		return items && items.map(function (item){
-			return item.id;
-		}).join(',');
-	}
-});*/
-tagEditor.filter('getRow', function(){
-	return function (items, row){
-		return items && items.map(function (item){
-				return item[row];
-		}).join(',');
-	}
-});
-tagEditor.directive('focusMe', function($timeout, $parse){
-	return{
-		link: function(scope, element, attrs){
-			var model = $parse(attrs.focusMe);
-			scope.$watch(model, function(value){
-				if(value === true){ 
-					$timeout(function(){
-						element[0].focus(); 
-					});
-				}
-			});
-			element.bind('blur', function(){
-				scope.$apply(model.assign(scope, false));
-			});
+'use strict';
+
+angular.module('ngTagEditor', [])
+	.filter('getCol', function(){
+		return function (items, row){
+			return items && items.map(function (item){
+					return item[row];
+			}).join(',');
 		}
-	};
-});
-tagEditor.directive('ngSpace', function(){
-	return function(scope, element, attrs){
-		element.bind("keydown", function(event) {
-			if(event.which === 32) {
-				scope.$apply(function (){
-					scope.$eval(attrs.ngSpace);
+	}).directive('focusMe', ['$timeout', '$parse', function($timeout, $parse){
+		return{
+			link: function(scope, element, attrs){
+				var model = $parse(attrs.focusMe);
+				scope.$watch(model, function(value){
+					if(value === true){ 
+						$timeout(function(){
+							element[0].focus(); 
+						});
+					}
 				});
-				event.preventDefault();
-			}
-		});
-	};
-});
-tagEditor.directive('ngEnter', function(){
-	return function(scope, element, attrs){
-		element.bind("keydown", function(event) {
-			if(event.which === 13) {
-				scope.$apply(function (){
-					scope.$eval(attrs.ngEnter);
-				});
-				event.preventDefault();
-			}
-		});
-	};
-});
-tagEditor.directive('ngDelete', function(){
-	return function(scope, element, attrs){
-		element.bind("keydown", function(event) {
-			if(event.which === 8) {
-				scope.$apply(function (){
-					scope.$eval(attrs.ngDelete);
-				});
-				event.preventDefault();
-			}
-		});
-	};
-});
-tagEditor.directive('tagEditor', function(){
-	return{
-		restrict: 'E',
-		/*require: 'ngModel',*/
-		scope: {
-			link: '=ngModel',
-			stored: '=ngStored'
-		},
-		replace: true,
-		templateUrl: 'ngTagEditor.html',
-		controller: function($scope, $attrs, $element, $http, $filter){
-			$scope.options = [];
-			$scope.options.output = $attrs.output || 'name';
-			$scope.options.fetch = $attrs.fetch || 'api/tags?q=';
-			$scope.added = $scope.link || [];
-			$scope.stored = $scope.stored || [];
-			$scope.search = '';
-			
-			$scope.fetch = function(){
-				$http.get($scope.options.fetch + $scope.search).success(function(data){
-					$scope.suggestions = data.data;
-					console.log(data);
+				element.bind('blur', function(){
+					scope.$apply(model.assign(scope, false));
 				});
 			}
-			$scope.add = function(id, name){
-				$scope.added.push({'id':id, 'name':name});
+		};
+	}]).directive('tagEditor', function(){
+		return{
+			restrict: 'AE',
+			/* require: 'ngModel',*/
+			scope: {
+				tags: '=ngModel'
+			},
+			replace: true,
+			templateUrl: 'ngTagEditor.html',
+			controller: ['$scope', '$attrs', '$element', '$http', '$filter', function($scope, $attrs, $element, $http, $filter){
+				
+				$scope.options = [];
+				$scope.options.output = $attrs.output || 'name';
+				$scope.options.fetch = $attrs.fetch || 'suggestions.php?q=';
+				$scope.options.placeholder = $attrs.placeholder || 'Enter a few letters...';
+				$scope.options.apiOnly = $attrs.apiOnly || false;
 				$scope.search = '';
-			}
-			$scope.remove = function(index){
-				$scope.added.splice(index, 1);
-			}
-			$scope.delete = function(){
-				if($scope.search == ''){
-					$scope.added.pop();
-				}
-			}
+			
+				$scope.$watch('search', function(){
+					$http.get($scope.options.fetch + $scope.search).success(function(data){
+						$scope.suggestions = data.data;
+						/* console.log(data); */
+					});
+				});
+				$scope.add = function(id, name){
+					$scope.tags.push({'id':id, 'name':name});
+					$scope.search = '';
+					$scope.$apply();
+				};
+				$scope.remove = function(index){
+					$scope.tags.splice(index, 1);
+				};
+				
+				$element.find('input').on('keydown', function(e){
+					var keys = [8, 13, 32];
+					if(keys.indexOf(e.which) !== -1){
+						if(e.which == 8){ /* backspace */
+							if($scope.search.length === 0 && $scope.tags.length){
+								$scope.tags.pop();
+								e.preventDefault();
+							}
+						}
+						else if(e.which == 32 || e.which == 13){ /* space & enter */
+							if($scope.search.length && !$scope.apiOnly){
+								if(!$scope.apiOnly){
+									$scope.add(0, $scope.search);
+									e.preventDefault();
+								}
+							}
+						}
+						$scope.$apply();
+					}
+				});
+				
+			}]
 		}
-	}
-});
+	});

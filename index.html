@@ -21,7 +21,7 @@
 					}).join(',');
 				}
 			});
-			app.controller('RandomController', function($scope, $http) {
+			app.controller('RandomController', function($scope) {
 				$scope.tags = [
 					{name: 'Hello'},
 					{name: 'World'}
@@ -66,7 +66,7 @@
 					<h2>Demo</h2>
 					<p>Press space or enter to add a custom tag (a not suggested tag), otherwise just click it.</p>
 					<form>
-						<tag-editor ng-model="tags" output="name" fetch="url/to/my/api.php?query="></tag-editor>
+						<tag-editor ng-model="tags" output="name" fetch="suggestions.json"></tag-editor>
 					</form>
 					<h2>Quick start</h2>
 					<p>Add the following component, and you're ready to go!</p>
