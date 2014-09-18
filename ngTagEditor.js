@@ -23,39 +23,7 @@ angular.module('ngTagEditor', [])
 				});
 			}
 		};
-	}]).directive('ngSpace', function(){
-		return function(scope, element, attrs){
-			element.bind("keydown", function(event) {
-				if(event.which === 32) {
-					scope.$apply(function (){
-						scope.$eval(attrs.ngSpace);
-					});
-					event.preventDefault();
-				}
-			});
-		};
-	}).directive('ngEnter', function(){
-		return function(scope, element, attrs){
-			element.bind("keydown", function(event) {
-				if(event.which === 13) {
-					scope.$apply(function (){
-						scope.$eval(attrs.ngEnter);
-					});
-					event.preventDefault();
-				}
-			});
-		};
-	}).directive('ngDelete', function(){
-		return function(scope, element, attrs){
-			element.bind("keydown", function(event) {
-				if(event.which === 8) {
-					scope.$apply(function (){
-						scope.$eval(attrs.ngDelete);
-					});
-				}
-			});
-		};
-	}).directive('tagEditor', function(){
+	}]).directive('tagEditor', function(){
 		return{
 			restrict: 'AE',
 			/* require: 'ngModel',*/
