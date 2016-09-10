@@ -50,7 +50,6 @@ angular.module('ngTagEditor', [])
 				$scope.add = function(id, name){
 					$scope.tags.push({'id':id, 'name':name});
 					$scope.search = '';
-					$scope.$apply();
 				};
 				$scope.remove = function(index){
 					$scope.tags.splice(index, 1);
